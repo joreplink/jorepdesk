@@ -101,22 +101,14 @@ app.mount("/media", StaticFiles(directory=settings.media_dir), name="media")
 
 
 # ── Routers ──────────────────────────────────────────────────────────────────
-# Se irán registrando conforme avancemos en cada fase:
-#
-# Fase 3:  from app.api.v1 import auth
-#          app.include_router(auth.router, prefix="/api/v1/auth", tags=["Auth"])
-#
-# Fase 4:  from app.api.v1 import catalogos
-#          app.include_router(catalogos.router, prefix="/api/v1", tags=["Catálogos"])
-#
-# Fase 5:  from app.api.v1 import usuarios
-#          app.include_router(usuarios.router, prefix="/api/v1", tags=["Usuarios"])
-#
-# Fase 6:  from app.api.v1 import tickets
-#          app.include_router(tickets.router, prefix="/api/v1", tags=["Tickets"])
-#
-# Fase 7:  from app.api.v1 import evidencias, observaciones
-# Fase 8:  from app.api.v1 import reportes
+from app.api.v1 import auth
+app.include_router(auth.router, prefix="/api/v1/auth", tags=["Auth"])
+
+# Fase 4:  catalogos
+# Fase 5:  usuarios
+# Fase 6:  tickets
+# Fase 7:  evidencias, observaciones
+# Fase 8:  reportes
 
 
 # ── Health check ─────────────────────────────────────────────────────────────
