@@ -11,11 +11,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from app.core.config import get_settings
 from app.db.base import Base
 
-# Importa TODOS los modelos aquí para que Alembic los detecte en autogenerate.
-# Conforme creemos modelos en fases siguientes, los agregamos aquí:
-# from app.models.usuario import Usuario
-# from app.models.ticket import Ticket
-# etc.
+# Importa todos los modelos para que Alembic los detecte en autogenerate.
+import app.models  # noqa: F401 — registra todos los modelos en Base.metadata
 
 settings = get_settings()
 config = context.config
