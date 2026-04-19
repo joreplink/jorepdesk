@@ -1,0 +1,30 @@
+# Entorno
+.env
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Alembic
+alembic/versions/*.pyc
+
+# Media uploads (no versionar archivos subidos)
+media/*
+!media/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build
+dist/
+build/
+*.egg-info/

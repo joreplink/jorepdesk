@@ -1,0 +1,30 @@
+# ── Web framework ──────────────────────────────────────
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+
+# ── Database ────────────────────────────────────────────
+sqlalchemy==2.0.30
+alembic==1.13.1
+pymysql==1.1.1
+cryptography==42.0.8          # requerido por pymysql para SSL
+
+# ── Validation / Settings ───────────────────────────────
+pydantic==2.7.1
+pydantic-settings==2.2.1
+python-dotenv==1.0.1
+
+# ── Auth ────────────────────────────────────────────────
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# ── File uploads ────────────────────────────────────────
+python-multipart==0.0.9
+
+# ── Reports export ──────────────────────────────────────
+reportlab==4.1.0
+openpyxl==3.1.2
+
+# ── Dev / testing ───────────────────────────────────────
+pytest==8.2.0
+pytest-asyncio==0.23.6
+httpx==0.27.0                  # cliente async para tests de FastAPI
