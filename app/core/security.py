@@ -1,5 +1,10 @@
 from datetime import datetime, timedelta, timezone
 from typing import Any
+import warnings
+
+# Silencia el warning de compatibilidad entre passlib y bcrypt 4.x
+warnings.filterwarnings("ignore", ".*error reading bcrypt version.*")
+warnings.filterwarnings("ignore", ".*trapped.*")
 
 from jose import JWTError, jwt
 from passlib.context import CryptContext

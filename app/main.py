@@ -104,7 +104,8 @@ app.mount("/media", StaticFiles(directory=settings.media_dir), name="media")
 from app.api.v1 import auth
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Auth"])
 
-# Fase 4:  catalogos
+from app.api.v1 import catalogos
+app.include_router(catalogos.router, prefix="/api/v1", tags=["Catálogos"])
 # Fase 5:  usuarios
 # Fase 6:  tickets
 # Fase 7:  evidencias, observaciones
