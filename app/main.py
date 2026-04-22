@@ -106,7 +106,8 @@ app.include_router(auth.router, prefix="/api/v1/auth", tags=["Auth"])
 
 from app.api.v1 import catalogos
 app.include_router(catalogos.router, prefix="/api/v1", tags=["Catálogos"])
-# Fase 5:  usuarios
+from app.api.v1 import usuarios
+app.include_router(usuarios.router, prefix="/api/v1", tags=["Usuarios"])
 # Fase 6:  tickets
 # Fase 7:  evidencias, observaciones
 # Fase 8:  reportes
