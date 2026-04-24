@@ -119,11 +119,11 @@ curl http://localhost:8000/health
 
 ## Fases de desarrollo
 
-- [ ] **Fase 1** — Configuración base (config, DB, seguridad, estructura)
+- [x] **Fase 1** — Configuración base (config, DB, seguridad, estructura)
 - [ ] **Fase 2** — Modelos ORM + primera migración Alembic
 - [ ] **Fase 3** — Autenticación JWT (login, refresh, guards)
 - [ ] **Fase 4** — Catálogos (TipoServicio, Area)
-- [x] **Fase 5** — Usuarios / Agentes
+- [ ] **Fase 5** — Usuarios / Agentes
 - [ ] **Fase 6** — Tickets (crear, asignar, reasignar, cambiar estado)
 - [ ] **Fase 7** — Observaciones y Evidencias
 - [ ] **Fase 8** — Reportes y exportación
