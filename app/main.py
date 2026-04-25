@@ -110,7 +110,9 @@ from app.api.v1 import usuarios
 app.include_router(usuarios.router, prefix="/api/v1", tags=["Usuarios"])
 from app.api.v1 import tickets
 app.include_router(tickets.router, prefix="/api/v1", tags=["Tickets"])
-# Fase 7:  evidencias, observaciones
+from app.api.v1 import observaciones, evidencias
+app.include_router(observaciones.router, prefix="/api/v1", tags=["Observaciones"])
+app.include_router(evidencias.router, prefix="/api/v1", tags=["Evidencias"])
 # Fase 8:  reportes
 
 
