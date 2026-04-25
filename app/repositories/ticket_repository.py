@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import and_
 from app.models.ticket import Ticket
 from app.models.ticket_agente import TicketAgente
+from app.models.historial_estado import HistorialEstado
 from app.models.usuario import Usuario
 
 
@@ -20,7 +21,7 @@ class TicketRepository:
                 joinedload(Ticket.area),
                 joinedload(Ticket.asignaciones).joinedload(TicketAgente.agente),
                 joinedload(Ticket.historial_estados).joinedload(
-                    "cambiado_por"
+                    HistorialEstado.cambiado_por
                 ),
             )
         )
@@ -47,7 +48,7 @@ class TicketRepository:
         return query.order_by(Ticket.creado_en.desc()).all()
 
     def get_by_agente(self, agente_id: str) -> list[Ticket]:
-        """Retorna tickets con asignación activa para un agente."""
+        """Retorna tickets con asignacion activa para un agente."""
         return (
             self._base_query()
             .join(TicketAgente, and_(
@@ -96,15 +97,8 @@ class TicketRepository:
         self.db.refresh(asignacion)
         return asignacion
 
-    def numero_existe(self, numero: str) -> bool:
-        return (
-            self.db.query(Ticket)
-            .filter(Ticket.numero == numero)
-            .first() is not None
-        )
-
     def siguiente_numero(self) -> str:
-        """Genera el siguiente número correlativo TKT-00001."""
+        """Genera el siguiente numero correlativo TKT-00001."""
         from sqlalchemy import func
         result = self.db.query(func.max(Ticket.numero)).scalar()
         if not result:
