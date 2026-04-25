@@ -113,7 +113,8 @@ app.include_router(tickets.router, prefix="/api/v1", tags=["Tickets"])
 from app.api.v1 import observaciones, evidencias
 app.include_router(observaciones.router, prefix="/api/v1", tags=["Observaciones"])
 app.include_router(evidencias.router, prefix="/api/v1", tags=["Evidencias"])
-# Fase 8:  reportes
+from app.api.v1 import reportes
+app.include_router(reportes.router, prefix="/api/v1", tags=["Reportes"])
 
 
 # ── Health check ─────────────────────────────────────────────────────────────
