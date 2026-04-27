@@ -32,7 +32,6 @@ class UsuarioService:
         return UsuarioOut.model_validate(usuario)
 
     def create(self, data: UsuarioCreate) -> UsuarioOut:
-        # Email único
         if self.repo.email_exists(data.email):
             raise ConflictException(
                 f"Ya existe un usuario con el email '{data.email}'."
@@ -55,7 +54,6 @@ class UsuarioService:
         usuario = self.repo.get_by_id(usuario_id)
         if not usuario:
             raise NotFoundException("Usuario")
-
         if data.nombre is not None:
             usuario.nombre = data.nombre.strip()
         if data.apellido is not None:
@@ -66,44 +64,40 @@ class UsuarioService:
             usuario.telefono = data.telefono
         if data.activo is not None:
             usuario.activo = data.activo
-
         usuario = self.repo.update(usuario)
         return UsuarioOut.model_validate(usuario)
 
-    def cambiar_password(
-        self,
-        usuario_id: str,
-        data: CambiarPasswordRequest,
-        current_user_id: str,
-    ) -> dict:
-        # Solo el propio usuario puede cambiar su contraseña
+    def cambiar_password(self, usuario_id: str, data: CambiarPasswordRequest, current_user_id: str) -> dict:
         if usuario_id != current_user_id:
-            raise ForbiddenException(
-                "Solo puedes cambiar tu propia contraseña."
-            )
+            raise ForbiddenException("Solo puedes cambiar tu propia contrasena.")
         usuario = self.repo.get_by_id(usuario_id)
         if not usuario:
             raise NotFoundException("Usuario")
-
         if not verify_password(data.password_actual, usuario.password_hash):
-            raise BadRequestException("La contraseña actual es incorrecta.")
-
+            raise BadRequestException("La contrasena actual es incorrecta.")
         if data.password_actual == data.password_nuevo:
-            raise BadRequestException(
-                "La contraseña nueva debe ser diferente a la actual."
-            )
+            raise BadRequestException("La contrasena nueva debe ser diferente a la actual.")
         usuario.password_hash = hash_password(data.password_nuevo)
         self.repo.update(usuario)
-        return {"message": "Contraseña actualizada correctamente."}
+        return {"message": "Contrasena actualizada correctamente."}
+
+    def resetear_password_admin(self, usuario_id: str, nueva_password: str) -> dict:
+        """Solo administradores. Resetea la contrasena sin necesitar la actual."""
+        if len(nueva_password) < 8:
+            raise BadRequestException("La contrasena debe tener al menos 8 caracteres.")
+        usuario = self.repo.get_by_id(usuario_id)
+        if not usuario:
+            raise NotFoundException("Usuario")
+        usuario.password_hash = hash_password(nueva_password)
+        self.repo.update(usuario)
+        return {"message": f"Contrasena de {usuario.email} reseteada correctamente."}
 
     def desactivar(self, usuario_id: str, current_user_id: str) -> dict:
         if usuario_id == current_user_id:
             raise BadRequestException("No puedes desactivar tu propia cuenta.")
-
         usuario = self.repo.get_by_id(usuario_id)
         if not usuario:
             raise NotFoundException("Usuario")
-
         usuario.activo = False
         self.repo.update(usuario)
         return {"message": f"Usuario {usuario.email} desactivado correctamente."}
